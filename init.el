@@ -1,6 +1,6 @@
 ;; Thanks, but no thanks
 (setq inhibit-startup-message t)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
@@ -184,6 +184,13 @@
   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+
+(defun efs/org-mode-setup ()
+  (text-scale-set 2)
+
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
 
 (use-package org
   :hook (org-mode . efs/org-mode-setup)
