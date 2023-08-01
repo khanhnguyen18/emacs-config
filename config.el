@@ -9,10 +9,13 @@
 
 (set-face-attribute 'default nil :font "Fira Code" :height 170) ; Font
 
+;; Prevent undo tree files from polluting your git repo
+(setq undo-tree-history-directory-alist  `((".*" . ,temporary-file-directory))) 
+
 (setq backup-directory-alist
-        `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms
-        `((".*" ,temporary-file-directory t)))
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -120,9 +123,11 @@
     (kbd "C-i") #'my-indent-org-block-automatically)
 
   ;; Change color depend on LEVEL
-   (set-face-attribute 'org-level-2 nil :foreground "#fff383")
-   (set-face-attribute 'org-level-3 nil :foreground "white")
+  (set-face-attribute 'org-level-2 nil :foreground "#fff383")
+  (set-face-attribute 'org-level-3 nil :foreground "white")
 
+  ;; Set strike out
+  (set-face-attribute 'org-headline-done nil :strike-through t)
   )
 
 (use-package org-bullets
