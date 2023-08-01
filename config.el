@@ -121,6 +121,7 @@
 
   ;; Change color depend on LEVEL
    (set-face-attribute 'org-level-2 nil :foreground "#fff383")
+   (set-face-attribute 'org-level-3 nil :foreground "white")
 
   )
 
