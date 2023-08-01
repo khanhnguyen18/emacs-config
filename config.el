@@ -98,7 +98,7 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 (defun efs/org-mode-setup ()
-                                        ;(text-scale-set 2)
+  ;; (text-scale-set 2)
   (org-indent-mode)
   (variable-pitch-mode 1)
   (visual-line-mode 1))
@@ -109,12 +109,18 @@
   (setq org-ellipsis " ▾")
   (setq org-adapt-indentation t)
   (efs/org-font-setup)
+
+  ;; Set color for KEYWORD
   (setq org-todo-keyword-faces
         '(("TODO" . "red")
           ("DONE"."green")
           ))
+  ;; Set C-i for indent code block
   (define-key org-mode-map
     (kbd "C-i") #'my-indent-org-block-automatically)
+
+  ;; Change color depend on LEVEL
+   (set-face-attribute 'org-level-2 nil :foreground "#fff383")
 
   )
 
@@ -147,12 +153,6 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 1))
 
 (use-package which-key
   :init (which-key-mode)
