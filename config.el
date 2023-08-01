@@ -3,18 +3,16 @@
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 20)        ; Give some breathing room
+(set-fringe-mode 10)        ; Give some breathing room
 
 (menu-bar-mode -1)          ; Disable the menu bar 
 
 (set-face-attribute 'default nil :font "Fira Code" :height 170) ; Font
 
- (setq backup-directory-alist
+(setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
-
-
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -70,12 +68,15 @@
             (remove 'lispy evil-collection-mode-list))
       (evil-collection-init))
 
-(defun efs/org-font-setup ()
-  ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+(defun my-indent-org-block-automatically ()
+  (interactive)
+  (when (org-in-src-block-p)
+    (org-edit-special)
+    (indent-region (point-min) (point-max))
+    (org-edit-src-exit)))
 
+
+(defun efs/org-font-setup ()
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
@@ -97,7 +98,7 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 (defun efs/org-mode-setup ()
-  ;(text-scale-set 2)
+                                        ;(text-scale-set 2)
   (org-indent-mode)
   (variable-pitch-mode 1)
   (visual-line-mode 1))
@@ -107,13 +108,21 @@
   :config
   (setq org-ellipsis " ▾")
   (setq org-adapt-indentation t)
-  (efs/org-font-setup))
+  (efs/org-font-setup)
+  (setq org-todo-keyword-faces
+        '(("TODO" . "red")
+          ("DONE"."green")
+          ))
+  (define-key org-mode-map
+    (kbd "C-i") #'my-indent-org-block-automatically)
+
+  )
 
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (org-bullets-bullet-list '("◉" "○" "☆" "○" "●" "○" "●")))
 
 (defun efs/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
@@ -138,6 +147,12 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 1))
 
 (use-package which-key
   :init (which-key-mode)
