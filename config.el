@@ -123,8 +123,8 @@
     (kbd "C-i") #'my-indent-org-block-automatically)
 
   ;; Change color depend on LEVEL
-  (set-face-attribute 'org-level-2 nil :foreground "#fff383")
-  (set-face-attribute 'org-level-3 nil :foreground "white")
+  ;; (set-face-attribute 'org-level-2 nil :foreground "#fff383")
+  (set-face-attribute 'org-level-3 nil :foreground "#fff383")
 
   ;; Set strike out
   (set-face-attribute 'org-headline-done nil :strike-through t)
