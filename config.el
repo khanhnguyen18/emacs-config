@@ -113,9 +113,12 @@
   (setq org-adapt-indentation t)
   (efs/org-font-setup)
 
+  (setq org-todo-keywords '((sequence "TODO(t)" "PROCESSING(p)" "|" "DONE(d)")))
+
   ;; Set color for KEYWORD
   (setq org-todo-keyword-faces
-        '(("TODO" . "red")
+        '(("TODO"."red")
+          ("PROCESSING"."gold")
           ("DONE"."green")
           ))
   ;; Set C-i for indent code block
