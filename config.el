@@ -111,6 +111,7 @@
   :config
   (setq org-ellipsis " ▾")
   (setq org-adapt-indentation t)
+  (setq org-M-RET-may-split-line nil)
   (efs/org-font-setup)
 
   (setq org-todo-keywords '((sequence "TODO(t)" "PROCESSING(p)" "|" "DONE(d)")))
@@ -118,7 +119,7 @@
   ;; Set color for KEYWORD
   (setq org-todo-keyword-faces
         '(("TODO"."red")
-          ("PROCESSING"."gold")
+          ("PROCESSING".(:foreground "black" :background "#fff383"))
           ("DONE"."green")
           ))
   ;; Set C-i for indent code block

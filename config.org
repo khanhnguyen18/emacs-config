@@ -144,7 +144,7 @@ Orgmode is very useful mode for write markdown text.
     ;; Set color for KEYWORD
     (setq org-todo-keyword-faces
           '(("TODO"."red")
-            ("PROCESSING"."gold")
+            ("PROCESSING".(:foreground "black" :background "#fff383"))
             ("DONE"."green")
             ))
     ;; Set C-i for indent code block
