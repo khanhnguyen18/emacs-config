@@ -4,7 +4,7 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
-
+(setq truncate-partial-width-windows 200) 
 (menu-bar-mode -1)          ; Disable the menu bar 
 
 (set-face-attribute 'default nil :font "Fira Code" :height 170)
@@ -18,8 +18,14 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; Make ESC quit prompts
+(defun open-emacs-config-file ()
+  (interactive)
+  (let ((split-width-threshold 0)
+        (split-height-threshold nil))
+    (find-file-other-window "~/.emacs.d/config.org"))
+  (message "Open emacs config"))
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "<f12>")  (lambda () (interactive) (find-file-other-window "~/.emacs.d/config.org")))
+(global-set-key (kbd "<f12>")  'open-emacs-config-file)
 (global-set-key (kbd "<f2>")  (lambda () (interactive) (message "Hello Khanh")))
 
 (use-package doom-themes

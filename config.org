@@ -1,12 +1,12 @@
 * Basic setup
 #+begin_src emacs-lisp :results silent
   (setq inhibit-startup-message t) ;Not show initialize screen 
-
+  (setq truncate-partial-width-windows 200) 
+  
   (scroll-bar-mode -1)        ; Disable visible scrollbar
   (tool-bar-mode -1)          ; Disable the toolbar
   (tooltip-mode -1)           ; Disable tooltips
   (set-fringe-mode 10)        ; Give some breathing room
-
   (menu-bar-mode -1)          ; Disable the menu bar 
 
   (set-face-attribute 'default nil :font "Fira Code" :height 170)
@@ -27,8 +27,14 @@
 Some use full key map
 #+begin_src emacs-lisp :results silent
   ;; Make ESC quit prompts
+  (defun open-emacs-config-file ()
+    (interactive)
+    (let ((split-width-threshold 0)
+          (split-height-threshold nil))
+      (find-file-other-window "~/.emacs.d/config.org"))
+    (message "Open emacs config"))
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (global-set-key (kbd "<f12>")  (lambda () (interactive) (find-file-other-window "~/.emacs.d/config.org")))
+  (global-set-key (kbd "<f12>")  'open-emacs-config-file)
   (global-set-key (kbd "<f2>")  (lambda () (interactive) (message "Hello Khanh")))
 
 #+end_src
